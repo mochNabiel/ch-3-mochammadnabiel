@@ -1,6 +1,6 @@
 const usecaseCar = require("../usecase/cars/");
 
-function checkInputCar(req, res) {
+function checkCarInput(req, res) {
   const {
     plate,
     manufacture,
@@ -127,7 +127,7 @@ exports.getCarById = (req, res) => {
 };
 
 exports.createCar = (req, res) => {
-  checkInputCar(req, res);
+  checkCarInput(req, res);
   const data = usecaseCar.createCar(req);
 
   res.status(201).json({
@@ -137,7 +137,7 @@ exports.createCar = (req, res) => {
 };
 
 exports.updateCar = (req, res) => {
-  checkInputCar(req, res);
+  checkCarInput(req, res);
   const data = usecaseCar.updateCar(req);
 
   res.status(200).json({
