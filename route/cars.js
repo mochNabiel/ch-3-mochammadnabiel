@@ -1,4 +1,3 @@
-// route/cars.js
 const express = require("express");
 const carsController = require("../controller/cars");
 

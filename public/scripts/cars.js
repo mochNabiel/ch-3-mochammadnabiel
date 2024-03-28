@@ -1,4 +1,4 @@
-import carsData from "../cars.json" assert { type: "json" };
+import carsData from "../../data/cars.json" assert { type: "json" };
 
 const transmisi = document.querySelector("#transmisi");
 const tanggal = document.querySelector("#tanggal");
@@ -8,56 +8,45 @@ const carsContainer = document.getElementById("cars-container");
 
 const btnCariMobil = document.querySelector("#btn-cari-mobil");
 
-function toggleCariMobilButton() {
+const toggleCariMobilButton = () => {
   const selectedTanggal = tanggal.value;
   const selectedTransmisi = transmisi.value;
-  console.log(selectedTransmisi);
-  console.log(selectedTanggal);
-  if (selectedTransmisi && selectedTanggal) {
-    btnCariMobil.disabled = false;
-  } else {
-    btnCariMobil.disabled = true;
-  }
-}
+  btnCariMobil.disabled = !(selectedTransmisi && selectedTanggal);
+};
 
-function dateHandler(tanggal) {
+const dateHandler = (tanggal) => {
   const userDate = new Date(tanggal);
   const currentDate = new Date("2022-03-23");
-  if (userDate.getTime() >= currentDate) {
-    console.log("tanggalmu sesudah tanggal available");
-    return true;
-  } else {
-    console.log("tanggalmu sebelum tanggal available");
-    return false;
-  }
-}
+  return userDate.getTime() >= currentDate;
+};
 
-function searchCars(transmisi, tanggal, capacity) {
-  if (capacity == "0") {
-    const searchedCars = [...carsData].filter((car) => {
-      return (
-        car.available == dateHandler(tanggal) && car.transmission == transmisi
+const searchCars = (transmisi, tanggal, capacity) => {
+  if (transmisi === "All") {
+    if (capacity == "0") {
+      return [...carsData].filter(
+        (car) => car.available == dateHandler(tanggal)
       );
-    });
-    return searchedCars;
+    } else {
+      return [...carsData].filter(
+        (car) =>
+          car.capacity == capacity && car.available == dateHandler(tanggal)
+      );
+    }
   } else {
-    const searchedCars = [...carsData].filter((car) => {
-      return (
+    return [...carsData].filter(
+      (car) =>
         car.capacity == capacity &&
         car.available == dateHandler(tanggal) &&
         car.transmission == transmisi
-      );
-    });
-    return searchedCars;
+    );
   }
-}
+};
 
-function displaySearchedCars() {
+const displaySearchedCars = () => {
   const selectedTransmisi = transmisi.value;
   const selectedTanggal = tanggal.value;
   const selectedCapacity = capacity.value;
   const cars = searchCars(selectedTransmisi, selectedTanggal, selectedCapacity);
-  console.log(cars);
   if (cars.length === 0) {
     carsContainer.innerHTML =
       "<p>Tidak ada mobil yang sesuai dengan kriteria.</p>";
@@ -100,9 +89,9 @@ function displaySearchedCars() {
     });
     carsContainer.innerHTML = carsHTML;
   }
-}
+};
 
-btnCariMobil.addEventListener("click", function (event) {
+btnCariMobil.addEventListener("click", (event) => {
   event.preventDefault();
   displaySearchedCars();
 });

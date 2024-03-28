@@ -109,7 +109,7 @@ exports.getAllCars = (req, res) => {
 
   const response = {
     data: data,
-    message: null,
+    message: "Data ",
   };
 
   res.status(200).json(response);

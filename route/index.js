@@ -1,4 +1,3 @@
-// route/index.js
 const express = require('express');
 const carsRouter = require('./cars');
 
