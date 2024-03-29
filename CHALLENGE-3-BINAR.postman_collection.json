@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "8db6b87e-9c50-49c1-831a-6b114e3ce65d",
+		"name": "CHALLENGE-3-BINAR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23106923"
+	},
+	"item": [
+		{
+			"name": "GET ALL CARS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/cars/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cars",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET CAR BY ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/cars/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cars",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST CAR",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"plate\" : \"B 5675 GG\",\r\n  \"manufacture\": \"Toyota\",\r\n  \"model\": \"Supra\",\r\n  \"image\": \"./images/car03.min.jpg\",\r\n  \"rentPerDay\": 4000000,\r\n  \"capacity\": 2,\r\n  \"description\" : \"Ini Supra bozz\",\r\n  \"availableAt\" : \"2022-03-23T15:49:05.563Z\",\r\n  \"transmission\": \"Automatic\",\r\n  \"available\": true,\r\n    \"type\": \"Sedan\",\r\n    \"year\": 2021,\r\n    \"options\": [\r\n      \"Bucket Seats\",\r\n      \"Airbag: Passenger\",\r\n      \"Airbag: Driver\",\r\n      \"Power Seats\",\r\n      \"Airbag: Side\",\r\n      \"Antilock Brakes\",\r\n      \"CD (Multi Disc)\"\r\n    ],\r\n    \"specs\": [\r\n      \"Driver & front passenger map pockets\",\r\n      \"Direct-type tire pressure monitor system\",\r\n      \"Cargo area lamp\",\r\n      \"Glove box lamp\",\r\n      \"Silver finish interior door handles\",\r\n      \"Driver & front passenger advanced multistage airbags w/occupant sensors\",\r\n      \"Silver accent IP trim finisher -inc: silver shifter finisher\",\r\n      \"Fasten seat belt warning light/chime\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/cars/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cars",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE CAR",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"plate\": \"DBH-3491\",\r\n  \"manufacture\": \"Ford Updated\",\r\n  \"model\": \"F150\",\r\n  \"image\": \"./images/car01.min.jpg\",\r\n  \"rentPerDay\": 200000,\r\n  \"capacity\": 2,\r\n  \"description\": \" Brake assist. Leather-wrapped shift knob. Glove box lamp. Air conditioning w/in-cabin microfilter.\",\r\n  \"availableAt\": \"2022-03-23T15:49:05.563Z\",\r\n  \"transmission\": \"Automatic\",\r\n  \"available\": true,\r\n  \"type\": \"Sedan\",\r\n  \"year\": 2022,\r\n  \"options\": [\r\n    \"Cruise Control\",\r\n    \"Tinted Glass\",\r\n    \"Tinted Glass\",\r\n    \"Tinted Glass\",\r\n    \"AM/FM Stereo\"\r\n  ],\r\n  \"specs\": [\r\n    \"Brake assist\",\r\n    \"Leather-wrapped shift knob\",\r\n    \"Glove box lamp\",\r\n    \"Air conditioning w/in-cabin microfilter\",\r\n    \"Body color folding remote-controlled pwr mirrors\",\r\n    \"Dual-stage front airbags w/occupant classification system\"\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/cars/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cars",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE CAR",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/cars/26",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cars",
+						"26"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

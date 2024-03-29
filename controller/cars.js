@@ -108,19 +108,20 @@ exports.getAllCars = (req, res) => {
   const data = usecaseCar.getAllCars();
 
   const response = {
+    message: "Data Berhasil Ditampilkan",
     data: data,
-    message: "Data ",
   };
 
   res.status(200).json(response);
 };
 
 exports.getCarById = (req, res) => {
+  const { id } = req.params;
   const data = usecaseCar.getCarById(req);
 
   const response = {
+    message: `Data dengan id ${id} Berhasil Ditampilkan`,
     data: data,
-    message: null,
   };
 
   res.status(200).json(response);
@@ -131,26 +132,28 @@ exports.createCar = (req, res) => {
   const data = usecaseCar.createCar(req);
 
   res.status(201).json({
+    message: "Data Berhasil Ditambahkan",
     data: data,
-    message: "Data Berhasil Diinput",
   });
 };
 
 exports.updateCar = (req, res) => {
+  const { id } = req.params;
   checkCarInput(req, res);
   const data = usecaseCar.updateCar(req);
 
   res.status(200).json({
+    message: `Data dengan id ${id} Berhasil Diupdate`,
     data: data,
-    message: "Data Berhasil Diupdate",
   });
 };
 
 exports.deleteCar = (req, res) => {
+  const { id } = req.params;
   const data = usecaseCar.deleteCar(req);
 
   res.status(200).json({
-    data: data,
-    message: "Data Berhasil Dihapus",
+    message: `Data dengan id ${id} Berhasil Dihapus`,
+    data: null,
   });
 };

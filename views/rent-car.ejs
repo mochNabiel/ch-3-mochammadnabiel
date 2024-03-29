@@ -1,0 +1,192 @@
+<!-- Hero Section -->
+<section class="container mt-5 pt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h1 class="mb-4 fw-bold">
+        Sewa & Rental Mobil Terbaik di kawasan (Lokasimu)
+      </h1>
+      <p style="text-align: justify; width: 80%">
+        Selamat datang di Binar Car Rental. Kami menyediakan mobil kualitas
+        terbaik dengan harga terjangkau. Selalu siap melayani kebutuhanmu untuk
+        sewa mobil selama 24 jam.
+      </p>
+    </div>
+    <div class="col-md-6">
+      <img src="images/img-car.svg" class="img-fluid" alt="Car Image" />
+    </div>
+  </div>
+</section>
+
+<!-- Search Form -->
+<section class="container">
+  <div class="row shadow p-3 mx-auto bg-body my-4 rounded w-100">
+    <form action="/rent-car" method="post" role="search" id="form">
+      <div class="row">
+        <div class="col-12 col-md-3">
+          <div class="form-field">
+            <label for="transmisi" class="form-label">Transmisi</label>
+            <select
+              id="transmisi"
+              name="transmisi"
+              class="form-select"
+              aria-label="Default select example"
+              required
+            >
+              <option selected disabled>Pilih Transmisi</option>
+              <option value="All">Semua transmisi</option>
+              <option value="Automatic">Automatic</option>
+              <option value="Automanual">Automanual</option>
+              <option value="Manual">Manual</option>
+              <option value="CVT">CVT</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <div class="form-field">
+            <label for="tanggal" class="form-label">Tanggal</label>
+            <input
+              type="date"
+              id="tanggal"
+              name="tanggal"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-field">
+            <label for="capacity" class="form-label">
+              Jumlah Penumpang (optional)
+            </label>
+            <select
+              id="capacity"
+              name="capacity"
+              class="form-select"
+              aria-label="Default select example"
+            >
+              <option value="0" selected disabled>Jumlah Penumpang</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-2 d-flex align-items-end">
+          <button
+            id="btn-cari-mobil"
+            class="btn btn-success px-3 py-2 w-100"
+            style="background-color: #5cb85f; border: none; font-weight: 600"
+            type="submit"
+          >
+            Cari Mobil
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Dropdown Sorting -->
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-lg-3" id="sortingCar">
+      <% if (typeof cars !== 'undefined') { %>
+      <label class="form-label" for="sort">Urutkan Tahun</label>
+      <select id="sort" name="sort" class="form-select">
+        <option value="paling-sesuai" selected>Paling sesuai</option>
+        <option value="terbaru">Terbaru</option>
+        <option value="terlama">Terlama</option>
+      </select>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<!-- Render Car List -->
+<div class="container">
+  <% if (typeof cars !== 'undefined' && cars.length > 0) { %> <% let index = 0;
+  %> <% cars.forEach(car => { %> <% if (index % 3 === 0) { %>
+  <div id="listCar" class="row mb-5">
+    <% } %>
+    <div class="col-12 col-md-4 gy-3">
+      <div class="card">
+        <img
+          src="<%= car.image %>"
+          style="width: 100%; height: 200px; object-fit: cover"
+          class="card-img-top"
+          alt="Mobil"
+        />
+        <div class="card-body">
+          <h6><%= car.manufacture %> <%= car.model %> / <%= car.type %></h6>
+          <h5 class="card-title">Rp <%= car.rentPerDay %> / hari</h5>
+          <p class="card-text"><%= car.description %></p>
+          <p><img src="./icons/fi-users.svg" alt="" /><%= car.capacity %></p>
+          <p>
+            <img src="./icons/fi-settings.svg" alt="" /><%= car.transmission %>
+          </p>
+          <p><img src="./icons/fi-calendar.svg" alt="" /><%= car.year %></p>
+          <button
+            id="btn-sewa-mobil"
+            class="btn btn-success px-3 py-2 w-100"
+            style="background-color: #5cb85f; border: none; font-weight: 600"
+            type="submit"
+          >
+            Pilih Mobil
+          </button>
+        </div>
+      </div>
+    </div>
+    <% if ((index + 1) % 3 === 0 || index === cars.length - 1) { %> <% } %> <%
+    index++; %> <% }) %> <% } else if (typeof cars !== 'undefined') { %>
+    <p>Tidak ada mobil yang sesuai dengan kriteria.</p>
+    <% } %>
+  </div>
+
+  <% if (typeof cars !== 'undefined') { %>
+  <div id="carsData" style="display: none"><%= JSON.stringify(cars) %></div>
+  <% } %>
+
+  <script>
+    // Mengambil data mobil dari JSON dan menyimpannya dalam variabel cars
+    let cars = JSON.parse(document.getElementById("carsData").textContent);
+    let cars2 = [...cars];
+
+    // Fungsi untuk menampilkan mobil dalam card
+    function fungsiMenampilkan(arr) {
+      let cardCars = document.getElementById("listCar");
+      let cardSearchAvailable = "";
+      arr.map((car) => {
+        cardSearchAvailable += `<div class="col-12 col-md-4 gy-3">
+        <div class="card">
+          <img src="${car.image}" style="width: 100%; height: 200px; object-fit: cover" class="card-img-top" alt="Mobil" />
+          <div class="card-body">
+            <h6>${car.manufacture} ${car.model} / ${car.type}</h6>
+            <h5 class="card-title">Rp ${car.rentPerDay} / hari</h5>
+            <p class="card-text">${car.description}</p>
+            <p><img src="./icons/fi-users.svg" alt="" />${car.capacity}</p>
+            <p><img src="./icons/fi-settings.svg" alt="" />${car.transmission}</p>
+            <p><img src="./icons/fi-calendar.svg" alt="" />${car.year}</p>
+            <button id="btn-sewa-mobil" class="btn btn-success px-3 py-2 w-100" style="background-color: #5cb85f; border: none; font-weight: 600" type="submit">Pilih Mobil</button>
+          </div>
+        </div>
+      </div>`;
+      });
+      cardCars.innerHTML = cardSearchAvailable;
+    }
+
+    // Mendengarkan perubahan pada dropdown sorting
+    document.getElementById("sort").addEventListener("change", (event) => {
+      let urutkanTahun = event.target.value;
+      if (urutkanTahun === "terbaru") {
+        fungsiMenampilkan(cars.sort((a, b) => b.year - a.year));
+      } else if (urutkanTahun === "terlama") {
+        fungsiMenampilkan(cars.sort((a, b) => a.year - b.year));
+      } else {
+        fungsiMenampilkan(cars2);
+      }
+    });
+  </script>
+</div>

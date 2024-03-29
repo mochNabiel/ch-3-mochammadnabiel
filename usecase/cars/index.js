@@ -1,5 +1,7 @@
 const carRepository = require("../../repository/cars");
 
+exports.searchCar = (req) => carRepository.searchCar(req);
+
 exports.getAllCars = () => carRepository.getAllCars();
 
 exports.getCarById = (req) => carRepository.getCarById(req);

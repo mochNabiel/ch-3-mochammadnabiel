@@ -1,6 +1,48 @@
 const cars = require("../../data/cars.json");
 const { v4: uuidv4 } = require("uuid");
 
+exports.searchCar = (req) => {
+  const { transmisi, tanggal, capacity } = req.body;
+  const carsData = cars;
+
+  const dateHandler = (tanggal) => {
+    const userDate = new Date(tanggal);
+    const currentDate = new Date("2022-03-23");
+    return userDate.getTime() >= currentDate;
+  };
+
+  const searchCars = (transmisi, tanggal, capacity) => {
+    if (transmisi === "All") {
+      if (!capacity || capacity == "") {
+        return carsData.filter((car) => car.available == dateHandler(tanggal));
+      } else {
+        return carsData.filter(
+          (car) =>
+            car.capacity == capacity && car.available == dateHandler(tanggal)
+        );
+      }
+    } else {
+      if (!capacity || capacity == "") {
+        return carsData.filter(
+          (car) =>
+            car.available == dateHandler(tanggal) &&
+            car.transmission == transmisi
+        );
+      } else {
+        return carsData.filter(
+          (car) =>
+            car.capacity == capacity &&
+            car.available == dateHandler(tanggal) &&
+            car.transmission == transmisi
+        );
+      }
+    }
+  };
+
+  const data = searchCars(transmisi, tanggal, capacity);
+  return data;
+};
+
 exports.getAllCars = () => {
   return cars.map((car) => {
     return { ...car };
@@ -37,7 +79,7 @@ exports.updateCar = (req) => {
     cars[index] = updatedCar;
   }
 
-  return cars;
+  return updatedCar;
 };
 
 exports.deleteCar = (req) => {
